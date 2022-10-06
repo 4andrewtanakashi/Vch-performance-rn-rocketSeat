@@ -1,6 +1,13 @@
-import React, { useMemo } from 'react'
+import React,
+  {
+    useMemo //Memoriza o valor, para verificar se precisa atualizar (p/ cálculos complexos)
+  } from 'react'
 
-import { View, Text } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList
+} from 'react-native'
 import { Friend } from './Friend'
 
 interface Props {
@@ -8,10 +15,11 @@ interface Props {
     id: number
     name: string
     likes: number
-  }[]
+  }[],
+  follow: () => void
 }
 
-export function FriendList ( { data } : Props ) {
+export function FriendList ( { data, follow } : Props ) {
   const totalLikes = useMemo( () => {
     return data.reduce( (likes, friend ) => {
       return likes + friend.likes
@@ -23,14 +31,17 @@ export function FriendList ( { data } : Props ) {
 
       <Text> Total de likes: {totalLikes} </Text>
 
-      {
-        data.map( friend => ( 
+      <FlatList
+        data={data}
+        keyExtractor={ item => String(item.id) }
+        renderItem={ ( { item } ) => (
           <Friend
-            key={String(friend.id)}
-            data={friend}
+            key={String(item.id)}
+            data={item}
+            follow={follow}
           />
-        ) )
-      }
+        ) }
+      />
     </View>
   )
 }

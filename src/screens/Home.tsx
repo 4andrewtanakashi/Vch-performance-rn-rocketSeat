@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, {
+  useState,
+  useCallback //Memoriza o ponteiro da função para que não precise ficar renderizando
+} from 'react'
 
 import {
   View,
@@ -20,6 +23,10 @@ export function Home() {
     setFriends(data)
   }
 
+  const handleFollow = useCallback( () => {
+    console.log('Unfollow')
+  }, [] )
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Amigos</Text>
@@ -35,9 +42,9 @@ export function Home() {
         onPress={handSearch}
       />
 
-      <ScrollView style={styles.list}>
-        <FriendList data={ friends } />
-      </ScrollView>
+      
+      <FriendList follow={handleFollow} data={ friends } />
+      
     </View>
   )
 }
