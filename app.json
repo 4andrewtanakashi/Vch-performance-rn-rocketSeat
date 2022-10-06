@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "perfomanceapp",
+    "slug": "perfomanceapp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
